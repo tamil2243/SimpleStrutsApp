@@ -1,4 +1,5 @@
 package com.example.action;
+import java.util.Optional;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,8 +7,8 @@ public class UserDAO{
 	Connection con=null;
 	PreparedStatement ps=null;
 	ResultSet rs=null;
-	public boolean logIn(String email,String password){
-		User user=new User();
+	public Optional<User> logIn(String email,String password){
+		User user=null;
 		try{
 			con=DBConnection.getConnection();
 
@@ -21,19 +22,19 @@ public class UserDAO{
 			if(rs.next()){
 				String dbPassword = rs.getString("password");
 				if(dbPassword.equals(password)){
-
+					user=new User();
 					user.setId(rs.getInt("id"));
 					user.setName(rs.getString("name"));
 					user.setEmail(rs.getString("email"));
 					//user.setPassword(dpPassword);
-					return true;
 				}
 			}
 			
-			return false;
+			return Optional.ofNullable(user);
 		}catch(Exception e){
 			e.printStackTrace();
-			return false;
+			return Optional.ofNullable(user);
+
 		}
 		finally{
 			try { if (rs != null) rs.close(); } catch (Exception e) {}
@@ -67,5 +68,37 @@ public class UserDAO{
                 }
 	}
 
+	public User getUserById(int id){
+		User user=new User();
 
+		try{
+                        con=DBConnection.getConnection();
+
+                        String query="select * from users where id=?";
+                        ps=con.prepareStatement(query);
+                        ps.setInt(1,id);
+                        rs=ps.executeQuery();
+
+
+
+                        if(rs.next()){
+                                 user.setId(rs.getInt("id"));
+                                 user.setName(rs.getString("name"));
+                        	 user.setEmail(rs.getString("email"));
+                        }
+
+                        return user;
+                }catch(Exception e){
+                        e.printStackTrace();
+                        return user;
+
+                }
+                finally{
+                        try { if (rs != null) rs.close(); } catch (Exception e) {}
+                        try { if (ps != null) ps.close(); } catch (Exception e) {}
+                        try { if (con != null) con.close(); } catch (Exception e) {}
+                }
+
+
+	}
 }
