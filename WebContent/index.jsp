@@ -1,14 +1,14 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
-<head><title>Hello Form</title></head>
+<head><title>Welcome Form</title></head>
 <body>
-    <h2>Enter your name:</h2>
-    <s:form action="hello" method="post">
-        <s:textfield name="userName" label="User Name" />
-	<s:textfield name="age" label="Enter your age"/>
-	<s:textfield name="message" label="Enter message"/>
-        <s:submit value="Submit" />
+    <h2>Welcome:</h2>
+    <s:form action="loginForm" method="post">
+        <s:submit value="login" />
     </s:form>
+    <s:form action="registerForm" method="post">
+	    <s:submit value="Register"/>
+	    </s:form>
 </body>
 </html>
 

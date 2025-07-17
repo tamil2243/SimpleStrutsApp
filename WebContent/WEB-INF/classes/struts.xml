@@ -10,12 +10,25 @@
    
     <package name="default" namespace="/" extends="struts-default">
 
-	    <action name="" class="com.example.action.HelloAction" method="input">
-		    <result name="input">/index.jsp</result>
+	    <action name="">
+		    <result>/index.jsp</result>
 	    </action>
-        <action name="hello" class="com.example.action.HelloAction" method="execute">
-            <result name="success">/result.jsp</result>
+	    <action name="loginForm">
+		    <result>/login.jsp</result>
+	    </action>
+	    <action name="registerForm">
+                    <result>/register.jsp</result>
+            </action>
+
+        <action name="login" class="com.example.action.LoginAction" method="execute">
+		<result name="success">/loginSuccess.jsp</result>
+		<result name="failure">/loginError.jsp</result>
+    </action>
+    <action name="register" class="com.example.action.RegisterAction" method="execute">
+	    <result name="success">/registerSuccess.jsp</result>
+	    <result name="failure">/registerError.jsp</result>
         </action>
+
     </package>
 </struts>
 
