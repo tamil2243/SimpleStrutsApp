@@ -4,14 +4,18 @@
     "https://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
+	
     <constant name="struts.devMode" value="true" />
     <constant name="struts.objectFactory" value="struts"/>
-
+  <constant name="struts.allowlist.classes" value="com.example.action.User"/>
 
    
-    <package name="default" namespace="/" extends="struts-default">
+    <package name="default" namespace="/" extends="struts-default,json-default">
 
 	    <action name="">
+		    <result>/index.jsp</result>
+	    </action>
+	    <action name="index">
 		    <result>/index.jsp</result>
 	    </action>
 	    <action name="loginForm">
@@ -24,6 +28,7 @@
         <action name="login" class="com.example.action.LoginAction" method="execute">
 		<result name="success">/loginSuccess.jsp</result>
 		<result name="failure">/loginError.jsp</result>
+		
     </action>
     <action name="register" class="com.example.action.RegisterAction" method="execute">
 	    <result name="success">/registerSuccess.jsp</result>
